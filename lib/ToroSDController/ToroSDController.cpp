@@ -1,4 +1,4 @@
-#include "ToroSDLogger.h"
+#include "ToroSDController.h"
 
 LogFile::LogFile(String path)
 {
