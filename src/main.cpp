@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <vector>
-#include "ToroSDController.h"
+#include "MicroSDController.h"
 
 int attempts = 0;
 
@@ -11,7 +11,7 @@ void setup()
 	while (!SDC::init() && attempts < 15)
 		attempts++;
 
-	if (!SDC::ready)
+	if (!SDC::ready())
 	{
 		Serial.println("========== FAILED ==========");
 		return;
@@ -20,26 +20,10 @@ void setup()
 	LogFile test1("/test1.txt");
 	LogFile test2("test2.txt");
 
-	test1.log("ciao\n");
-	test1.log("come stai");
-
-	test2.log("ciao\n");
-
-	test1.log("?");
-
 	SDC::makedir("/direc");
 
 	std::vector<String> list = SDC::listFiles("/");
 	Serial.println("FILE LIST:");
-	for (String &s : list)
-	{
-		Serial.println(s);
-	}
-
-	LogFile test3("/direc/aaa.txt");
-
-	list = SDC::listFiles("/direc");
-	Serial.println("FILE LIST 2:");
 	for (String &s : list)
 	{
 		Serial.println(s);
