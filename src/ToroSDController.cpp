@@ -61,7 +61,7 @@ bool SDC::init_impl()
     return true;
 }
 
-bool SDC::makedir_impl(String &path)
+bool SDC::makedir_impl(String &path) const
 {
     if (!m_ready)
         return false;
@@ -75,12 +75,12 @@ std::vector<String> SDC::listFiles_impl(String &path)
     if (!root)
     {
         Serial.println("[TSD] Failed to load path");
-        return std::vector<String>();
+        return {};
     }
     if (!root.isDirectory())
     {
         Serial.println("[TSD] Path doesn't point to a directory");
-        return std::vector<String>();
+        return {};
     }
 
     std::vector<String> files;
@@ -89,7 +89,7 @@ std::vector<String> SDC::listFiles_impl(String &path)
     {
         if (!currFile.isDirectory())
         {
-            files.push_back(String(currFile.name()));
+            files.emplace_back(currFile.name());
         }
         currFile = root.openNextFile();
     }
@@ -102,12 +102,12 @@ std::vector<String> SDC::listDirs_impl(String &path)
     if (!root)
     {
         Serial.println("[TSD] Failed to load path");
-        return std::vector<String>();
+        return {};
     }
     if (!root.isDirectory())
     {
         Serial.println("[TSD] Path doesn't point to a directory");
-        return std::vector<String>();
+        return {};
     }
 
     std::vector<String> dirs;
@@ -116,7 +116,7 @@ std::vector<String> SDC::listDirs_impl(String &path)
     {
         if (currDir.isDirectory())
         {
-            dirs.push_back(String(currDir.name()));
+            dirs.emplace_back(currDir.name());
         }
         currDir = root.openNextFile();
     }

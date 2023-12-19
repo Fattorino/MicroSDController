@@ -1,13 +1,11 @@
 #include "SD.h"
-// #include "FS.h"
-// #include "SPI.h"
 #include <vector>
 #include <string>
 
 class LogFile
 {
 public:
-    LogFile(String path);
+    explicit LogFile(String path);
 
     bool log(String &&data);
 
@@ -38,20 +36,20 @@ public:
     static std::vector<String> listFiles(String &&path) { return get().listFiles_impl(path); }
     static std::vector<String> listDirs(String &&path) { return get().listDirs_impl(path); }
 
-private:
+protected:
     inline SDC(){};
 
-    int8_t m_cardType;
+    int8_t m_cardType = -1;
     uint64_t m_cardSize = 0;
     bool m_ready = false;
 
     bool init_impl();
 
-    bool ready_impl() { return m_ready; }
-    int8_t cardType_impl() { return m_cardType; }
-    uint64_t cardSize_impl() { return m_cardSize; }
+    bool ready_impl() const { return m_ready; }
+    int8_t cardType_impl() const { return m_cardType; }
+    uint64_t cardSize_impl() const { return m_cardSize; }
 
-    bool makedir_impl(String &path);
+    bool makedir_impl(String &path) const;
 
     std::vector<String> listFiles_impl(String &path);
     std::vector<String> listDirs_impl(String &path);

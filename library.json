@@ -1,0 +1,19 @@
+{
+  "name": "ToroSDController",
+  "version": "1.2.1",
+  "description": "Simple utility to handle data logging on SD card for the ESP32",
+  "keywords": "SD, esp32",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Fattorino/ToroSDController.git"
+  },
+  "authors": [
+    {
+      "name": "Gabriele Torelli",
+      "maintainer": true
+    }
+  ],
+  "license": "MIT",
+  "frameworks": "arduino",
+  "platforms": "espressif32"
+}
